@@ -15,9 +15,9 @@ export function Sidebar({ theme, toggleTheme }) {
   const navItems = [
     { name: "Dashboard", path: "/", icon: LayoutDashboard, active: true },
     { name: "Orders", path: "/orders", icon: Package, active: true },
-    { name: "Customers", path: "/customers", icon: Users, active: false },
-    { name: "Reports", path: "/reports", icon: BarChart2, active: false },
-    { name: "Settings", path: "/settings", icon: Settings, active: false },
+   //{ name: "Customers", path: "/customers", icon: Users, active: false },
+    //{ name: "Reports", path: "/reports", icon: BarChart2, active: false },
+    //{ name: "Settings", path: "/settings", icon: Settings, active: false },
   ];
 
   return (
