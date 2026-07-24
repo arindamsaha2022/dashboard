@@ -1,11 +1,30 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { mockOrders as initialOrders } from "../data/mockData";
 
+const STORAGE_KEY = "antigravity_orders";
+
 const OrdersContext = createContext();
+
+function safeGetItem(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    console.warn("localStorage.getItem failed:", e);
+    return null;
+  }
+}
+
+function safeSetItem(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn("localStorage.setItem failed:", e);
+  }
+}
 
 export function OrdersProvider({ children }) {
   const [orders, setOrders] = useState(() => {
-    const saved = localStorage.getItem("antigravity_orders");
+    const saved = safeGetItem(STORAGE_KEY);
     let loadedOrders = initialOrders;
     if (saved) {
       try {
@@ -28,7 +47,7 @@ export function OrdersProvider({ children }) {
   });
 
   useEffect(() => {
-    localStorage.setItem("antigravity_orders", JSON.stringify(orders));
+    safeSetItem(STORAGE_KEY, JSON.stringify(orders));
   }, [orders]);
 
   const updateOrder = (id, updatedData) => {

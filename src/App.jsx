@@ -12,13 +12,17 @@ import { CreateOrderModal } from "./components/CreateOrderModal";
 
 function AppContent() {
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("trakFly_theme");
-    return savedTheme ? savedTheme : "dark";
+    try {
+      const savedTheme = localStorage.getItem("trakFly_theme");
+      return savedTheme ? savedTheme : "dark";
+    } catch (e) {
+      return "dark";
+    }
   });
   const [isCreating, setIsCreating] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("trakFly_theme", theme);
+    try { localStorage.setItem("trakFly_theme", theme); } catch (e) { /* ignore */ }
     if (theme === "light") {
       document.documentElement.classList.add("light");
     } else {
